@@ -8,15 +8,23 @@
 <div>
   <h2>Add a todo:</h2>
   <input type="text" [(ngModel)]="todoInput" placeholder="Add a new todo" />
-  <button (click)="addToList()">Add</button>
+  <input
+    class="save-btn"
+    type="button"
+    value="Save"
+    (click)="addTodos(newTodo)"
+  />
+  <button (click)="updateTodo(todo)">Update</button>
+  <button (click)="deleteTodo(id)">Delete</button>
 
   <h3>Todo List:</h3>
   <ul>
-    @for(todoInput of todos; track todoInput; let i = $index){
-    <li>
-      {{ i + 1 }}. {{ todoInput }}
-      <span (click)="removeFromList(i)" style="color: red">x</span>
-    </li>
+    @for(todoInput of todoListFromBackend; track todoInput; let i = $index){
+    <app-todo-card
+      [toDoFromOtherPage]="todoInput.title"
+      (onRemoveClick)="removeFromList($event)"
+    />
+
     }
   </ul>
 </div>
